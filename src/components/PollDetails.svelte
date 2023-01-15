@@ -23,7 +23,6 @@
       answerKey="A"
       percent={percentA}
       barColor={barColorA}
-      on:vote
     />
     <PollAnswer
       id={poll.id}
@@ -32,7 +31,6 @@
       answerKey="B"
       percent={percentB}
       barColor={barColorB}
-      on:vote
     />
   </div>
 </Card>

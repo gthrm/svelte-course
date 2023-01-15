@@ -1,4 +1,5 @@
 <script>
+  import { pollStore } from "../store/poll-store";
   import Button from "../shared/Button.svelte";
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
@@ -40,7 +41,8 @@
         votesB: 0,
         id: self.crypto.randomUUID(),
       };
-      dispatch("submit", poll);
+      pollStore.update((currentPolls) => [...currentPolls, poll]);
+      dispatch("submit");
       errorsIsShown = false;
       fields = {
         question: "",

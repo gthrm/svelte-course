@@ -1,5 +1,7 @@
 <script>
+  import { pollStore } from "../store/poll-store";
   import Card from "./Card.svelte";
+  import Button from "../shared/Button.svelte";
   import PollAnswer from "./PollAnswer.svelte";
   export let poll = {};
 
@@ -10,6 +12,12 @@
     percentA >= percentB ? "rgba(69, 196, 150, 0.2)" : "rgba(217, 27, 66, 0.2)";
   $: barColorB =
     percentB >= percentA ? "rgba(69, 196, 150, 0.2)" : "rgba(217, 27, 66, 0.2)";
+
+  function handleDeletePoll() {
+    pollStore.update((currentPolls) =>
+      currentPolls.filter(({ id }) => id !== poll.id)
+    );
+  }
 </script>
 
 <Card>
@@ -32,6 +40,9 @@
       percent={percentB}
       barColor={barColorB}
     />
+    <div class="delete">
+      <Button on:click={handleDeletePoll} flat>Delete</Button>
+    </div>
   </div>
 </Card>
 
@@ -46,5 +57,9 @@
     font-size: 14px;
     color: #aaa;
     margin-bottom: 30px;
+  }
+  .delete {
+    margin-top: 30px;
+    text-align: center;
   }
 </style>

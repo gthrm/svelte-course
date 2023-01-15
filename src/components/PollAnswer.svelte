@@ -24,7 +24,7 @@
 
 <div class="answer" on:click|preventDefault={handleVote} on:keydown>
   <div
-    class="percent "
+    class="percent"
     style="width: {percent}%; background-color: {barColor}; border-left: 4px solid {barColor}"
   />
   <span>{answer} ({votes})</span>
@@ -46,6 +46,7 @@
     height: 100%;
     position: absolute;
     box-sizing: border-box;
+    /* transition: width 0.5s; */
   }
   span {
     display: inline-block;

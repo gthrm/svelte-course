@@ -1,4 +1,5 @@
 <script>
+  import { tweened } from "svelte/motion";
   import { pollStore } from "../store/poll-store";
   import Card from "./Card.svelte";
   import Button from "../shared/Button.svelte";
@@ -6,12 +7,23 @@
   export let poll = {};
 
   $: totalVotes = poll.votesA + poll.votesB;
-  $: percentA = Math.floor((100 / totalVotes) * poll.votesA);
-  $: percentB = Math.floor((100 / totalVotes) * poll.votesB);
+  $: percentA = Math.floor((100 / totalVotes) * poll.votesA) || 0;
+  $: percentB = Math.floor((100 / totalVotes) * poll.votesB) || 0;
   $: barColorA =
     percentA >= percentB ? "rgba(69, 196, 150, 0.2)" : "rgba(217, 27, 66, 0.2)";
   $: barColorB =
     percentB >= percentA ? "rgba(69, 196, 150, 0.2)" : "rgba(217, 27, 66, 0.2)";
+
+  const tweenedA = tweened(0);
+  const tweenedB = tweened(0);
+
+  $: {
+    tweenedA.set(percentA);
+  }
+
+  $: {
+    tweenedB.set(percentB);
+  }
 
   function handleDeletePoll() {
     pollStore.update((currentPolls) =>
@@ -29,7 +41,7 @@
       answer={poll.answerA}
       votes={poll.votesA}
       answerKey="A"
-      percent={percentA}
+      percent={$tweenedA}
       barColor={barColorA}
     />
     <PollAnswer
@@ -37,7 +49,7 @@
       answer={poll.answerB}
       votes={poll.votesB}
       answerKey="B"
-      percent={percentB}
+      percent={$tweenedB}
       barColor={barColorB}
     />
     <div class="delete">

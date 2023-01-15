@@ -2,7 +2,7 @@
 
 <header>
   <h1>
-    <img src="/img/logo.svg" alt="Poll" />
+    <img src="./img/logo.svg" alt="Poll" />
   </h1>
 </header>
 
